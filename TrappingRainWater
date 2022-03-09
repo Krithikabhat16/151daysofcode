@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        if(height.size()==0) 
+        return 0; 
+    int ans=0; 
+    int i,j;
+    for(i=1;i<height.size()-1;i++) 
+    { 
+      int l=-1; 
+      int r=-1; 
+      for(j=0;j<i+1;j++) 
+      l=max(l,height[j]); 
+      for(j=i;j<height.size();j++)
+      r=max(r,height[j]); 
+      ans=ans+min(l,r)-height[i]; 
+    } 
+    return ans;    
+        
+    }
+};
