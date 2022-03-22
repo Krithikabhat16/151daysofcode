@@ -1,0 +1,12 @@
+class Solution {
+public:
+    string getSmallestString(int n, int k) {
+        k -= n;
+            string alpha = "_bcdefghijklmnopqrstuvwxy_";
+            string ans = std::string(~~(k / 25), 'z');
+            if (k % 25) {
+                ans = alpha[k % 25] + ans;
+            }
+            return std::string(n - ans.size(), 'a') + ans;
+    }
+};
