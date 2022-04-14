@@ -1,0 +1,43 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    struct BSTNode
+{
+    int value;
+    BSTNode *left , *right;
+    BSTNode(int val)
+    {
+        value = val;
+        left = right = NULL;
+    }
+};
+void preorderTraversal(BSTNode* root)
+{
+    if(root == NULL)
+        return;
+    cout << root->value << " ";
+    preorderTraversal(root->left);
+    preorderTraversal(root->right);
+    return;
+}
+    TreeNode* searchBST(TreeNode* root, int val) {
+        if(root == NULL)
+        return root;
+    if(val == root->val)
+        return root;
+    if(val < root->val)
+        return searchBST(root->left , val);
+    return searchBST(root->right , val);
+        
+    }
+};
