@@ -1,0 +1,67 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void recoverTree(TreeNode* root) {
+        if(!root) return ;
+        if(!root->left && !root->right) return;
+        TreeNode* curr = root;
+        TreeNode* pre=NULL;
+        TreeNode* prev = NULL;
+        TreeNode* Node1 = NULL;
+        TreeNode* Node2 = NULL;
+        TreeNode* middle = NULL;
+        while(curr){
+            if(!curr->left){
+                if(prev && curr->val < prev->val){
+                    if(!Node1) {
+                        Node1 = prev;
+                        middle = curr;
+                        
+                    }
+                    else Node2 = curr;
+                } 
+                prev = curr;
+                curr = curr->right;
+            }else{
+                pre = curr->left;
+                while(pre->right && pre->right != curr){
+                    pre = pre->right;
+                }
+                if(pre->right == NULL){
+                    pre->right = curr;
+                    curr = curr->left;
+                }
+                else{
+                    pre->right = NULL;
+                    if(prev && curr->val < prev->val){
+                        if(!Node1) {
+                            Node1 = prev;
+                            middle = curr;
+                        }
+                        else Node2 = curr;
+                    }
+                    prev = curr;
+                    curr = curr->right;
+                }
+            }
+        }
+        if(Node1 && Node2){
+            swap(Node1->val, Node2->val);
+        }else{
+            if(Node1 && middle){
+                swap(Node1->val, middle->val);
+            }
+        }
+        
+    }
+};
